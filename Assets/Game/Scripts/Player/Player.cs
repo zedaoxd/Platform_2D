@@ -6,18 +6,41 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed = 5f;
+    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private Vector2 friction = new(0.1f, 0f);
 
     private void Update()
     {
+        HandleJump();
+        HandleMovement();
+    }
+
+    private void HandleMovement()
+    {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            // rb.MovePosition(rb.position + speed * Time.deltaTime * Vector2.left);
             rb.velocity = new Vector2(-speed, rb.velocity.y);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            // rb.MovePosition(rb.position + speed * Time.deltaTime * Vector2.right);
             rb.velocity = new Vector2(speed, rb.velocity.y);
+        }
+
+        if (rb.velocity.x > 0)
+        {
+            rb.velocity += friction;
+        }
+        else if (rb.velocity.x < 0)
+        {
+            rb.velocity -= friction;
+        }
+    }
+
+    private void HandleJump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.velocity = Vector2.up * jumpForce;
         }
     }
 }
