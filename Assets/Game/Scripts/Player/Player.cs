@@ -6,8 +6,11 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed = 5f;
+    [SerializeField] private float speedRun = 10f;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private Vector2 friction = new(0.1f, 0f);
+
+    private float CurrentSpeed => Input.GetKey(KeyCode.LeftShift) ? speedRun : speed;
 
     private void Update()
     {
@@ -19,11 +22,11 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
+            rb.velocity = new Vector2(-CurrentSpeed, rb.velocity.y);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
+            rb.velocity = new Vector2(CurrentSpeed, rb.velocity.y);
         }
 
         if (rb.velocity.x > 0)
