@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Cinemachine;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -17,6 +17,9 @@ public class GameManager : Singleton<GameManager>
     [Header("Animations")]
     [SerializeField] private float duration = 0.2f;
     [SerializeField] private Ease easeType = Ease.InOutSine;
+
+    [Header("Camera")]
+    [SerializeField] private CinemachineVirtualCamera cameraFollow;
 
 
     private GameObject player;
@@ -35,5 +38,7 @@ public class GameManager : Singleton<GameManager>
     {
         player = Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
         player.transform.DOScale(0, duration).From().SetDelay(duration).SetEase(easeType);
+        cameraFollow.Follow = player.transform;
+        cameraFollow.LookAt = player.transform;
     }
 }
