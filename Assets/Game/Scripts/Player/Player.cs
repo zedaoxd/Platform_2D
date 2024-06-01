@@ -1,49 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
+
+    [Header("Speeds")]
     [SerializeField] private float speed = 5f;
     [SerializeField] private float speedRun = 10f;
+
+    [Header("Jump")]
     [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private Vector2 friction = new(0.1f, 0f);
+    [SerializeField] private int maxJump = 2;
 
     private float CurrentSpeed => Input.GetKey(KeyCode.LeftShift) ? speedRun : speed;
+    private int countJump = 0;
 
     private void Update()
     {
+        var horizontalInput = Input.GetAxis("Horizontal");
+
+        HandleMovement(horizontalInput);
         HandleJump();
-        HandleMovement();
+        Flip(horizontalInput);
     }
 
-    private void HandleMovement()
+    private void Flip(float horizontalInput)
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (horizontalInput > 0)
         {
-            rb.velocity = new Vector2(-CurrentSpeed, rb.velocity.y);
+            transform.localScale = Vector3.one;
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        else if (horizontalInput < 0)
         {
-            rb.velocity = new Vector2(CurrentSpeed, rb.velocity.y);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
+    }
 
-        if (rb.velocity.x > 0)
-        {
-            rb.velocity += friction;
-        }
-        else if (rb.velocity.x < 0)
-        {
-            rb.velocity -= friction;
-        }
+    private void HandleMovement(float horizontalInput)
+    {
+        rb.velocity = new Vector2(horizontalInput * CurrentSpeed, rb.velocity.y);
     }
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && countJump < maxJump)
         {
-            rb.velocity = Vector2.up * jumpForce;
+            Jump();
+        }
+    }
+
+    public void Jump()
+    {
+        rb.velocity = Vector2.up * jumpForce;
+        countJump++;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            countJump = 0;
         }
     }
 }
