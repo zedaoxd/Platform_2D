@@ -1,5 +1,3 @@
-using DG.Tweening;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -14,8 +12,19 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private int maxJump = 2;
 
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+
     private float CurrentSpeed => Input.GetKey(KeyCode.LeftShift) ? speedRun : speed;
     private int countJump = 0;
+    private readonly string InputX = "InputX";
+    private readonly string InputY = "InputY";
+
+    private void Start()
+    {
+        if (!rb) rb = GetComponent<Rigidbody2D>();
+        if (!animator) animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -36,6 +45,8 @@ public class Player : MonoBehaviour
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
+
+        animator.SetFloat(InputX, horizontalInput);
     }
 
     private void HandleMovement(float horizontalInput)
@@ -48,6 +59,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && countJump < maxJump)
         {
             Jump();
+            animator.SetFloat(InputY, 1);
         }
     }
 
@@ -62,6 +74,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             countJump = 0;
+            animator.SetFloat(InputY, 0);
         }
     }
 }

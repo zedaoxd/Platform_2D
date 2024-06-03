@@ -16,8 +16,8 @@ public class EnemyBase : MonoBehaviour
             if (isTop)
             {
                 Destroy(gameObject);
-                var player = collision.gameObject.GetComponent<Player>();
-                player.Jump();
+                // var player = collision.gameObject.GetComponent<Player>();
+                // player.Jump();
             }
             else
             {

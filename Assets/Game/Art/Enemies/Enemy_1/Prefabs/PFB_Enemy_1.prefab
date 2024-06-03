@@ -326,9 +326,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8073972946613542793}
   - component: {fileID: 2403329696302037006}
-  - component: {fileID: 8239900433822074622}
-  - component: {fileID: 270723848174610112}
-  - component: {fileID: 1762279908807904675}
+  - component: {fileID: 6754157601867658505}
+  - component: {fileID: 1294658795849453048}
+  - component: {fileID: 8963279669821186407}
   m_Layer: 0
   m_Name: PFB_Enemy_1
   m_TagString: Untagged
@@ -381,7 +381,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!210 &8239900433822074622
+--- !u!210 &6754157601867658505
 SortingGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -393,7 +393,7 @@ SortingGroup:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_SortAtRoot: 0
---- !u!61 &270723848174610112
+--- !u!61 &1294658795849453048
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -425,7 +425,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 3.31}
+  m_Offset: {x: 0, y: 3.15}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -436,9 +436,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.39, y: 6.7}
+  m_Size: {x: 5.16, y: 6.49}
   m_EdgeRadius: 0
---- !u!114 &1762279908807904675
+--- !u!114 &8963279669821186407
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
